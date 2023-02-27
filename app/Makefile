@@ -7,7 +7,7 @@ endif
 
 SRC_DIR     = src
 INC_DIR     = inc
-OPENCM3_DIR = libopencm3
+OPENCM3_DIR = ../libopencm3
 
 BINARY = firmware
 
@@ -57,6 +57,7 @@ CSTD		?= -std=c99
 OBJS		+= $(SRC_DIR)/$(BINARY).o
 OBJS		+= $(SRC_DIR)/api-system.o
 OBJS		+= $(SRC_DIR)/api-io.o
+OBJS		+= $(SRC_DIR)/bootloader.o
 
 ###############################################################################
 # C flags
@@ -158,6 +159,10 @@ print-%:
 %.o: %.c
 	@#printf "  CC      $(*).c\n"
 	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) $(TGT_CPPFLAGS) $(CPPFLAGS) -o $(*).o -c $(*).c
+
+%.o: %.S
+	@#printf "  CC      $(*).S\n"
+	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) -o $(*).o -c $(*).S
 
 %.o: %.cxx
 	@#printf "  CXX     $(*).cxx\n"

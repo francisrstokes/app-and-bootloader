@@ -16,7 +16,19 @@
     },
     {
       "type": "shell",
+      "label": "build_bootloader",
+      "options": {
+        "cwd": "bootloader"
+      },
+      "command": "make bin",
+      "problemMatcher": "$gcc"
+    },
+    {
+      "type": "shell",
       "label": "build_debug",
+      "options": {
+        "cwd": "app"
+      },
       "dependsOn": "power_on",
       "command": "make bin",
       "problemMatcher": "$gcc"

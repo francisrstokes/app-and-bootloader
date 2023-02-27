@@ -2,7 +2,7 @@
   "configurations": [
     {
       "name": "Debug with JLink",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/app",
       "executable": "./firmware.elf",
       "serverpath": "/usr/bin/JLinkGDBServer",
       "servertype": "jlink",
@@ -15,7 +15,7 @@
     },
     {
       "name": "Attach to active",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/app",
       "executable": "./firmware.elf",
       "serverpath": "/usr/bin/JLinkGDBServer",
       "servertype": "jlink",
