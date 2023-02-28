@@ -1,4 +1,3 @@
-#define STM32F4
 #include <libopencm3/stm32/rcc.h>
 
 #include "api-system.h"
