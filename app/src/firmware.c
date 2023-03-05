@@ -1,9 +1,9 @@
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/usart.h>
 
 #include "api-system.h"
-#include "api-io.h"
-
-#define GPIO_AF_TIM2_CH1 (GPIO_AF1)
+#include "api-gpio.h"
+#include "api-uart.h"
 
 static void rcc_setup(void) {
   rcc_clock_setup_pll(&rcc_hsi_configs[RCC_CLOCK_3V3_84MHZ]);
@@ -11,17 +11,7 @@ static void rcc_setup(void) {
   rcc_periph_clock_enable(RCC_GPIOA);
   rcc_periph_clock_enable(RCC_GPIOC);
   rcc_periph_clock_enable(RCC_TIM2);
-}
-
-static void gpio_setup(void)
-{
-  // Setup the LED
-  gpio_mode_setup(LEDPort, GPIO_MODE_AF, GPIO_PUPD_NONE, LEDPin);
-  gpio_set_af(LEDPort, GPIO_AF_TIM2_CH1, LEDPin);
-  gpio_set_output_options(LEDPort, GPIO_OTYPE_PP, GPIO_OSPEED_2MHZ, LEDPin);
-
-  // Setup the button
-  gpio_mode_setup(BtnInPort, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, BtnInPin);
+  rcc_periph_clock_enable(RCC_USART2);
 }
 
 static void timer_setup(void) {
@@ -47,6 +37,7 @@ int main(void)
   rcc_setup();
   gpio_setup();
   timer_setup();
+  uart_setup();
 
   timer_enable_counter(TIM2);
   timer_enable_oc_output(TIM2, TIM_OC1);
@@ -54,10 +45,15 @@ int main(void)
 
   uint8_t Duty = 50;
 
+  const char UartData[] = "Witty message goes here\n";
+
   while (1) {
-    if (io_btn_pressed()) {
-      Duty = io_set_led_duty(Duty + 5);
+    if (gpio_btn_pressed()) {
+      Duty = gpio_set_led_duty(Duty + 5);
       system_delay(100);
+    } else {
+      uart_send_string(UartData, sizeof(UartData));
+      system_delay(500);
     }
   }
 

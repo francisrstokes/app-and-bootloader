@@ -1,7 +1,7 @@
 {
   "configurations": [
     {
-      "name": "Debug with JLink",
+      "name": "Debug Application",
       "cwd": "${workspaceFolder}/app",
       "executable": "./firmware.elf",
       "serverpath": "/usr/bin/JLinkGDBServer",

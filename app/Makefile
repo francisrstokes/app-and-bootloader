@@ -56,8 +56,9 @@ CSTD		?= -std=c99
 
 OBJS		+= $(SRC_DIR)/$(BINARY).o
 OBJS		+= $(SRC_DIR)/api-system.o
-OBJS		+= $(SRC_DIR)/api-io.o
+OBJS		+= $(SRC_DIR)/api-gpio.o
 OBJS		+= $(SRC_DIR)/bootloader.o
+OBJS		+= $(SRC_DIR)/api-uart.o
 
 ###############################################################################
 # C flags
@@ -152,7 +153,7 @@ print-%:
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-%.elf %.map: $(OBJS) $(LDSCRIPT) $(OPENCM3_DIR)/lib/lib$(LIBNAME).a
+%.elf %.map: $(OBJS) $(LDSCRIPT) $(OPENCM3_DIR)/lib/lib$(LIBNAME).a Makefile
 	@#printf "  LD      $(*).elf\n"
 	$(Q)$(LD) $(TGT_LDFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(*).elf
 

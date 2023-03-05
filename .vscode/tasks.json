@@ -7,6 +7,7 @@
       "type": "shell",
       "label": "power_on",
       "command": "JLinkExe -CommandFile .vscode/jlink/power-on.jlink",
+      "problemMatcher": []
     },
     {
       "type": "shell",
@@ -29,7 +30,6 @@
       "options": {
         "cwd": "app"
       },
-      "dependsOn": "power_on",
       "command": "make bin",
       "problemMatcher": "$gcc"
     }
