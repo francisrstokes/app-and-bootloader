@@ -44,16 +44,20 @@ int main(void)
   timer_enable_oc_preload(TIM2, TIM_OC1);
 
   uint8_t Duty = 50;
-
-  const char UartData[] = "Witty message goes here\n";
+  uint8_t byte_received = 0;
+  const char UartData[] = "You sent: ";
 
   while (1) {
     if (gpio_btn_pressed()) {
       Duty = gpio_set_led_duty(Duty + 5);
-      system_delay(100);
-    } else {
+    }
+
+    while (uart_bytes_available() > 0) {
+      uart_read(&byte_received);
+
       uart_send_string(UartData, sizeof(UartData));
-      system_delay(500);
+      uart_send_char((char)byte_received);
+      uart_send_char(' ');
     }
   }
 

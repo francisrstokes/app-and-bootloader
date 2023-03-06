@@ -59,6 +59,7 @@ OBJS		+= $(SRC_DIR)/api-system.o
 OBJS		+= $(SRC_DIR)/api-gpio.o
 OBJS		+= $(SRC_DIR)/bootloader.o
 OBJS		+= $(SRC_DIR)/api-uart.o
+OBJS		+= $(SRC_DIR)/ring-buffer.o
 
 ###############################################################################
 # C flags
